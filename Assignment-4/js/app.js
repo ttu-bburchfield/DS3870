@@ -1,3 +1,7 @@
 $('#btnTest').click(function() {
-    alert('Test');
+    const decTaxRate = .0925;
+    let decHours = $('#txtHours').val();
+    let decRate = $('#txtPayRate').val();
+    console.log(decHours * decRate);
 });
+
