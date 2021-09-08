@@ -15,8 +15,23 @@
         <p>Phone: (931) 372-9999</p>
         <p>Address:  586 Southern Lane, Cookeville, TN 38506</p>
         <p>Assignment:  Clement Hall</p>
-        <input id="txtPayRate">
-        <input id="txtHours">
+        <div class="form-group">
+            <label for="txtPayRate">Pay Rate</label>
+            <input id="txtPayRate">
+        </div>
+        <div class="form-group" id="divHours">
+            <label for="txtHours">Hours Worked</label>
+            <input id="txtHours">
+        </div>
+        <div class="form-group">
+            <label for="cboEmployeeType">Employee Type</label>
+            <select id="cboEmployeeType">
+                <option></option>
+                <option value="FULL">Full Time</option>
+                <option value="PART">Part Time</option>
+            </select>
+        </div>
+        
         <button type="button" id="btnTest" class="btn btn-warning mb-3">Calculate</button>
     </div>
     
