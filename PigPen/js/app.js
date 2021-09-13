@@ -1,3 +1,10 @@
+$.getJSON("https://www.swollenhippo.com/getEmployeesByAPIKey.php?APIKey=Mickey2021!", function(result){
+    console.log(result);
+    $.each(result,function(i,keyField){
+        
+    })
+})
+
 $('#btnTest').click(function() {
     const decTaxRate = .0925;
     let decHours = $('#txtHours').val();
