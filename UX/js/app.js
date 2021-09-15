@@ -28,9 +28,11 @@ function buildEmployeeCard(){
             strHTML += '</div>';
             strHTML += '</div>';
             $('#divEmployeeCards').append(strHTML);
+            $('#tblEmployees tbody').append('<tr><td>' + person.FirstName + '</td><td>' + person.LastName + '</td></tr>');
         }
         
     });
+    $('#tblEmployees').DataTable();
 }
 
 $(document).on('click','.btnCalculatePay',function() {
