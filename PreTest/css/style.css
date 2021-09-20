@@ -1,0 +1,27 @@
+body {
+  background: url(../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+#divEmployeeContainer  {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#divEmployeeContainer  > .col-3 {
+    display: inline-block;
+}
+
+
+#divEmployeeContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#tblEmployeePay_wrapper {
+    margin-top:10px;
+}
+  
