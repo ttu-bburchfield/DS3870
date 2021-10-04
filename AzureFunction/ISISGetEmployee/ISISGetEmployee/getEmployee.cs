@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ISISGetEmployee
@@ -18,6 +19,12 @@ namespace ISISGetEmployee
             public string Name { get; set; }
             public string Address { get; set; }
             public string Phone { get; set; }
+            public Agency(string strAgencyName, string strAddress, string strPhone)
+            {
+                Name = strAgencyName;
+                Address = strAddress;
+                Phone = strPhone;
+            }
     }
         private class Employee
         {
@@ -49,31 +56,35 @@ namespace ISISGetEmployee
             string strAgency = req.Query["Agency"];
             log.LogInformation("HTTP trigger on getEmployee processed a request for: " + strCodeName);
 
-            string[] arrPeople = new string[] { "Daniel", "Nate", "Kail" };
-            foreach(string strCurrent in arrPeople)
-            {
+            Agency ISIS = new Agency("ISIS", "10 E Broad St", "(931) 526-2125");
+            Agency CIA = new Agency("CIA", "10 E Broad St", "(931) 526-2125");
 
-            }
-
-            Employee Archer = new Employee("Sterling", "Archer", "Duchess", "Field Agent", "Active",23.75,18.50,"ISIS");
-            Employee Lana = new Employee("Lana", "Kane", "Truckasaurus", "Field Agent", "Active",21.50,23.50, "ISIS");
-            Employee Pam = new Employee("Pam", "Poovey", "Snowball", "Human Resource Director", "Active",49.00,12, "ISIS");
-            Employee Barry = new Employee("Barry", "Cyborg", "Duchess", "Field Agent", "Active", 23.75, 18.50, "CIA");
+            Employee Archer = new Employee("Sterling", "Archer", "Duchess", "Field Agent", "Active",23.75,18.50,"ISIS", ISIS);
+            Employee Lana = new Employee("Lana", "Kane", "Truckasaurus", "Field Agent", "Active",21.50,23.50, "ISIS", ISIS);
+            Employee Pam = new Employee("Pam", "Poovey", "Snowball", "Human Resource Director", "Active",49.00,12, "ISIS", ISIS);
+            Employee Barry = new Employee("Barry", "Cyborg", "Duchess", "Field Agent", "Active", 23.75, 18.50, "CIA", CIA);
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
 
             Employee[] arrEmployees = new Employee[] { Archer, Lana, Pam, Barry };
 
-            Employee[] arrFoundEmployees = new Employee[] { };
+            List<Employee> lstFoundEmployees = new List<Employee>();
             foreach(Employee empCurrent in arrEmployees)
             {
                 if(strCodeName == empCurrent.CodeName)
                 {
-                    arrFoundEmployees.
+                    lstFoundEmployees.Add(empCurrent);
                 }
             }
-            return new OkObjectResult("Employee Not Found");
+            if(lstFoundEmployees.Count > 0)
+            {
+                return new OkObjectResult(lstFoundEmployees);
+            } else
+            {
+                return new OkObjectResult("Employee Not Found");
+            }
+            
 
         }
     }
