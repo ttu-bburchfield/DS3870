@@ -35,7 +35,7 @@ namespace ISISGetEmployee
             public string Status { get; set; }
             public double WeeklyPay { get; set; }
             public Agency Agency { get; set; }
-            public Employee(string strFirstName, string strLastName, string strCodeName, string strPosition, string strStatus, double dblPayRate, double dblHours, string strAgency, Agency agSpyAgency)
+            public Employee(string strFirstName, string strLastName, string strCodeName, string strPosition, string strStatus, double dblPayRate, double dblHours, Agency agSpyAgency)
             {
                 FirstName = strFirstName;
                 LastName = strLastName;
@@ -59,15 +59,33 @@ namespace ISISGetEmployee
             Agency ISIS = new Agency("ISIS", "10 E Broad St", "(931) 526-2125");
             Agency CIA = new Agency("CIA", "10 E Broad St", "(931) 526-2125");
 
-            Employee Archer = new Employee("Sterling", "Archer", "Duchess", "Field Agent", "Active",23.75,18.50,"ISIS", ISIS);
-            Employee Lana = new Employee("Lana", "Kane", "Truckasaurus", "Field Agent", "Active",21.50,23.50, "ISIS", ISIS);
-            Employee Pam = new Employee("Pam", "Poovey", "Snowball", "Human Resource Director", "Active",49.00,12, "ISIS", ISIS);
-            Employee Barry = new Employee("Barry", "Cyborg", "Duchess", "Field Agent", "Active", 23.75, 18.50, "CIA", CIA);
+            Employee Archer = new Employee("Sterling", "Archer", "Duchess", "Field Agent", "Active",23.75,18.50, ISIS);
+            Employee Lana = new Employee("Lana", "Kane", "Truckasaurus", "Field Agent", "Active",21.50,23.50, ISIS);
+            Employee Pam = new Employee("Pam", "Poovey", "Snowball", "Human Resource Director", "Active",49.00,12, ISIS);
+            Employee Barry = new Employee("Barry", "Cyborg", "Duchess", "Field Agent", "Active", 23.75, 18.50, CIA);
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
 
-            Employee[] arrEmployees = new Employee[] { Archer, Lana, Pam, Barry };
+            List<Employee> arrEmployees = new List<Employee>();
+            arrEmployees.Add(Archer);
+            arrEmployees.Add(Lana);
+            arrEmployees.Add(Pam);
+            arrEmployees.Add(Barry);
+
+
+            List<Employee> lstISIS = new List<Employee>();
+            List<Employee> lstCIA = new List<Employee>();
+            foreach(Employee empCurrent in arrEmployees)
+            {
+                if(empCurrent.Agency == CIA)
+                {
+                    lstCIA.Add(empCurrent);
+                } else
+                {
+                    lstISIS.Add(empCurrent);
+                }
+            }
 
             List<Employee> lstFoundEmployees = new List<Employee>();
             foreach(Employee empCurrent in arrEmployees)
